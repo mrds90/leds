@@ -1,6 +1,7 @@
 #include "leds.h"
 //============[PRIVATE CONSTANTS]=====================
 #define LED_PORT_INITIAL_VALUE 0x0000
+#define SET_LED(x) (1 << (x - 1))
 
 static uint16_t *port;
 
@@ -10,10 +11,10 @@ void LedsInit(uint16_t *direccion) {
     *port = LED_PORT_INITIAL_VALUE;
 }
 
-void LedTurnOn(uint16_t led) {
-    *port = 1 << 2;
+void LedTurnOn(led_t led) {
+    *port |= SET_LED(led);
 }
 
-void LedTurnOff(uint16_t led) {
-    *port = LED_PORT_INITIAL_VALUE;
+void LedTurnOff(led_t led) {
+    *port &= ~SET_LED(led);
 }

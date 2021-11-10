@@ -2,6 +2,7 @@
 #include "leds.h"
 
 #define LED_3       3
+#define LED_5       5
 #define LED_BIT(x) (1 << (x - 1))
 
 static uint16_t fake_port;
@@ -20,13 +21,32 @@ void test_LedTurnOffAtStart(void) {
     TEST_ASSERT_EQUAL(0, fake_port);
 }
 
+/**
+ * @brief Test: Turn on LED 3
+ *
+ */
 void test_LedTurnOn(void) {
-    LedTurnOn(LED_3);
+    LedTurnOn(LED3);
     TEST_ASSERT_EQUAL_HEX16(LED_BIT(LED_3), fake_port);
 }
 
+/**
+ * @brief Test: Turn off LED 3
+ *
+ */
 void test_LedTurnOff(void) {
-    LedTurnOn(LED_3);
-    LedTurnOff(LED_3);
+    LedTurnOn(LED3);
+    LedTurnOff(LED3);
     TEST_ASSERT_EQUAL(0, fake_port);
+}
+
+/**
+ * @brief Test: Turn on LED 3 and 5 then turn it off the led 3
+ *
+ */
+void test_LedTurnOnAndOffSeveralLeds(void) {
+    LedTurnOn(LED3);
+    LedTurnOn(LED5);
+    LedTurnOff(LED3);
+    TEST_ASSERT_EQUAL((LED_BIT(LED_5)), fake_port);
 }
