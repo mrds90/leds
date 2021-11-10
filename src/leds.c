@@ -13,3 +13,7 @@ void LedsInit(uint16_t *direccion) {
 void LedTurnOn(uint16_t led) {
     *port = 1 << 2;
 }
+
+void LedTurnOff(uint16_t led) {
+    *port = LED_PORT_INITIAL_VALUE;
+}
