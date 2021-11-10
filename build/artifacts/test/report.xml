@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<TestRun>
+	<FailedTests>
+		<Test id="1">
+			<Name>test/test_leds.c::test_led_apagados_al_inicio</Name>
+			<FailureType>Assertion</FailureType>
+			<Location>
+				<File>test/test_leds.c</File>
+				<Line>4</Line>
+			</Location>
+			<Message>Arrancamos</Message>
+		</Test>
+	</FailedTests>
+	<SuccessfulTests/>
+	<IgnoredTests/>
+	<Statistics>
+		<Tests>1</Tests>
+		<Ignores>0</Ignores>
+		<FailuresTotal>1</FailuresTotal>
+		<Errors>0</Errors>
+		<Failures>1</Failures>
+	</Statistics>
+</TestRun>
