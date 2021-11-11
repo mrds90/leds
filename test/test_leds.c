@@ -1,9 +1,11 @@
 #include "unity.h"
 #include "leds.h"
+#include "mock_errors.h"
 
 #define LED_3       3
 #define LED_5       5
 #define LED_BIT(x) (1 << (x - 1))
+#define INVALID_LED -1
 
 static uint16_t fake_port;
 
@@ -49,4 +51,15 @@ void test_LEDS_TurnOnAndOffSeveralLeds(void) {
     LEDS_TurnOn(LED5);
     LEDS_TurnOff(LED3);
     TEST_ASSERT_EQUAL((LED_BIT(LED_5)), fake_port);
+}
+
+/**
+ * @brief Test bad inputs
+ *
+ */
+void test_LEDS_TurnOn_BadInput(void) {
+    MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Numero de led invalido");
+    MessageRegister_CMockIgnoreArg_line(0);
+    LEDS_TurnOn(INVALID_LED);
+    TEST_ASSERT_EQUAL(0, fake_port);
 }

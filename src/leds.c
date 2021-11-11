@@ -1,4 +1,5 @@
 #include "leds.h"
+#include "errors.h"
 //============[PRIVATE CONSTANTS]=====================
 #define LED_PORT_INITIAL_VALUE 0x0000
 #define LedToMask(led) (1 << (led - 1))
@@ -18,7 +19,13 @@ void LEDS_Init(uint16_t *direccion) {
 }
 
 void LEDS_TurnOn(led_t led) {
-    *port |= LedToMask(led);
+    if (led >= LED1 && led <= LED_QTY) {
+        *port |= LedToMask(led);
+    }
+    else {
+        MessageRegister(0,__FUNCTION__, __LINE__ , "Numero de led invalido");
+    }
+
 }
 
 void LEDS_TurnOff(led_t led) {
