@@ -19,7 +19,7 @@ void LEDS_Init(uint16_t *direccion) {
 }
 
 void LEDS_TurnOn(led_t led) {
-    if (led >= LED1 && led <= LED_QTY) {
+    if (led >= LED1 && led < LED_QTY) {
         *port |= LedToMask(led);
     }
     else {
@@ -29,7 +29,7 @@ void LEDS_TurnOn(led_t led) {
 }
 
 void LEDS_TurnOff(led_t led) {
-    if (led >= LED1 && led <= LED_QTY) {
+    if (led >= LED1 && led < LED_QTY) {
         *port &= ~LedToMask(led);
     }
     else {

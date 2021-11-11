@@ -2,8 +2,10 @@
 #include "leds.h"
 #include "mock_errors.h"
 
+#define LED_1       1
 #define LED_3       3
 #define LED_5       5
+#define LED_16      16
 #define LED_BIT(x) (1 << (x - 1))
 #define INVALID_LED -1
 
@@ -63,9 +65,39 @@ void test_LEDS_TurnOn_BadInput(void) {
     LEDS_TurnOn(INVALID_LED);
     TEST_ASSERT_EQUAL(0, fake_port);
 }
-
+/**
+ * @brief Try to turn the first led on
+ * 
+ */
 void test_LEDS_TurnOFF_BadInput(void) {
     MessageRegister_Expect(0, "LEDS_TurnOff", 0, "Numero de led invalido");
     MessageRegister_CMockIgnoreArg_line(0);
     LEDS_TurnOff(INVALID_LED);
 }
+/**
+ * @brief Try to turn the last led on
+ * 
+ */
+void test_LEDS_TurnOnLowLimit(void) {
+    LEDS_TurnOn(LED1);
+    TEST_ASSERT_EQUAL(LED_BIT(LED_1), fake_port);
+}
+
+void test_LEDS_TurnOnHighLimit(void) {
+    LEDS_TurnOn(LED16);
+    TEST_ASSERT_EQUAL(LED_BIT(LED_16), fake_port);
+}
+/**
+ * @brief Try to turn one led just over the limit and under the limit
+ * 
+ */
+void test_LEDS_TurnOn_OutOfRangeAtLimit(void) {
+    MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Numero de led invalido");
+    MessageRegister_CMockIgnoreArg_line(0);
+    LEDS_TurnOn(17);
+    MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Numero de led invalido");
+    MessageRegister_CMockIgnoreArg_line(0);
+    LEDS_TurnOn(0);
+    TEST_ASSERT_EQUAL(0, fake_port);
+}
+
