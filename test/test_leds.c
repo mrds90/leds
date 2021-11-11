@@ -63,3 +63,9 @@ void test_LEDS_TurnOn_BadInput(void) {
     LEDS_TurnOn(INVALID_LED);
     TEST_ASSERT_EQUAL(0, fake_port);
 }
+
+void test_LEDS_TurnOFF_BadInput(void) {
+    MessageRegister_Expect(0, "LEDS_TurnOff", 0, "Numero de led invalido");
+    MessageRegister_CMockIgnoreArg_line(0);
+    LEDS_TurnOff(INVALID_LED);
+}
