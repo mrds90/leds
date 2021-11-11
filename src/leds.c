@@ -25,9 +25,8 @@ void LEDS_TurnOn(led_t led) {
         *port |= LedToMask(led);
     }
     else {
-        MessageRegister(0,__FUNCTION__, __LINE__ , "Invalid Led number");
+        MessageRegister(0, __FUNCTION__, __LINE__, "Invalid Led number");
     }
-
 }
 
 void LEDS_TurnOff(led_t led) {
@@ -35,15 +34,15 @@ void LEDS_TurnOff(led_t led) {
         *port &= ~LedToMask(led);
     }
     else {
-        MessageRegister(0,__FUNCTION__, __LINE__ , "Invalid Led number");
+        MessageRegister(0, __FUNCTION__, __LINE__, "Invalid Led number");
     }
 }
 
-void LEDS_TurnOnAll (void) {
+void LEDS_TurnOnAll(void) {
     *port = ALL_LEDS_MASK;
 }
 
-void LEDS_TurnOffAll (void) {
+void LEDS_TurnOffAll(void) {
     *port = LED_PORT_INITIAL_VALUE;
 }
 
@@ -53,9 +52,10 @@ led_state_t LEDS_GetState(led_t led) {
         state = LED_STATUS(led);
     }
     else {
-        MessageRegister(0,__FUNCTION__, __LINE__ , "Invalid Led number");
+        MessageRegister(0, __FUNCTION__, __LINE__, "Invalid Led number");
         state = LED_INVALID;
     }
     return state;
 }
+
 //============[PRIVATE METHODS IMPLEMENATION]=====================

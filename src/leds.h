@@ -39,16 +39,19 @@ void LEDS_TurnOn(led_t led);
  *
  */
 void LEDS_TurnOff(led_t led);
+
 /**
  * @brief TurnOn all leds
  *
  */
 void LEDS_TurnOnAll(void);
+
 /**
  * @brief TurnOff all leds
  *
  */
 void LEDS_TurnOffAll(void);
+
 /**
  * @brief Toggle a singular led
  *

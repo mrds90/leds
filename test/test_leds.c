@@ -65,18 +65,20 @@ void test_LEDS_TurnOn_BadInput(void) {
     LEDS_TurnOn(INVALID_LED);
     TEST_ASSERT_EQUAL(0, fake_port);
 }
+
 /**
  * @brief Try to turn the first led on
- * 
+ *
  */
 void test_LEDS_TurnOFF_BadInput(void) {
     MessageRegister_Expect(0, "LEDS_TurnOff", 0, "Invalid Led number");
     MessageRegister_CMockIgnoreArg_line(0);
     LEDS_TurnOff(INVALID_LED);
 }
+
 /**
  * @brief Try to turn the last led on
- * 
+ *
  */
 void test_LEDS_TurnOnLowLimit(void) {
     LEDS_TurnOn(LED1);
@@ -87,9 +89,10 @@ void test_LEDS_TurnOnHighLimit(void) {
     LEDS_TurnOn(LED16);
     TEST_ASSERT_EQUAL(LED_BIT(LED_16), fake_port);
 }
+
 /**
  * @brief Try to turn one led just over the limit and under the limit
- * 
+ *
  */
 void test_LEDS_TurnOn_OutOfRangeAtLimit(void) {
     MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Invalid Led number");
@@ -109,34 +112,42 @@ void test_LEDS_TurnON_AllLeds(void) {
     LEDS_TurnOnAll();
     TEST_ASSERT_EQUAL(0xFFFF, fake_port);
 }
+
 /**
  * @brief Turn off all LEDs
- * 
+ *
  */
 void test_LEDS_TurnOff_AllLeds(void) {
     LEDS_TurnOnAll();
     LEDS_TurnOffAll();
     TEST_ASSERT_EQUAL(0x0, fake_port);
 }
+
 /**
  * @brief Check status of led turned on
- * 
+ *
  */
 void test_LEDS_GetStateOn(void) {
     LEDS_TurnOn(LED3);
     led_state_t state = LEDS_GetState(LED3);
     TEST_ASSERT_EQUAL(LED_ON, state);
 }
+
 /**
  * @brief Check status of led turned off
- * 
+ *
  */
 void test_LEDS_GetStateOff(void) {
-    LEDS_TurnOn(LED3);
-    led_state_t state = LEDS_GetState(LED5);
+    LEDS_TurnOnAll();
+    LEDS_TurnOff(LED3);
+    led_state_t state = LEDS_GetState(LED3);
     TEST_ASSERT_EQUAL(LED_OFF, state);
 }
 
+/**
+ * @brief Try to get leds state of invalid led
+ *
+ */
 void test_LEDS_GetStateInvalidLed(void) {
     LEDS_TurnOn(LED_3);
     MessageRegister_Expect(0, "LEDS_GetState", 0, "Invalid Led number");
@@ -144,5 +155,27 @@ void test_LEDS_GetStateInvalidLed(void) {
     led_state_t state = LEDS_GetState(INVALID_LED);
     TEST_ASSERT_EQUAL(LED_INVALID, state);
 }
-//  * Consultar el estado de un led apagado
-//  * Consultar el estado de un led encendido
+
+/**
+ * @brief Try to get leds state just under the limit
+ *
+ */
+void test_LEDS_GetStateInvalidLowLimit(void) {
+    LEDS_TurnOn(LED_3);
+    MessageRegister_Expect(0, "LEDS_GetState", 0, "Invalid Led number");
+    MessageRegister_CMockIgnoreArg_line(0);
+    led_state_t state = LEDS_GetState(0);
+    TEST_ASSERT_EQUAL(LED_INVALID, state);
+}
+
+/**
+ * @brief Try to get leds state just over the limit
+ *
+ */
+void test_LEDS_GetStateInvalidHighLimit(void) {
+    LEDS_TurnOn(LED_3);
+    MessageRegister_Expect(0, "LEDS_GetState", 0, "Invalid Led number");
+    MessageRegister_CMockIgnoreArg_line(0);
+    led_state_t state = LEDS_GetState(17);
+    TEST_ASSERT_EQUAL(LED_INVALID, state);
+}
