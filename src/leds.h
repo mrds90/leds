@@ -38,3 +38,8 @@ void LEDS_TurnOff(led_t led);
  *
  */
 void LEDS_TurnOnAll(void);
+/**
+ * @brief Test: TurnOff all leds
+ *
+ */
+void LEDS_TurnOffAll(void);

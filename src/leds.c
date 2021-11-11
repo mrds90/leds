@@ -41,4 +41,8 @@ void LEDS_TurnOff(led_t led) {
 void LEDS_TurnOnAll (void) {
     *port = ALL_LEDS_MASK;
 }
+
+void LEDS_TurnOffAll (void) {
+    *port = LED_PORT_INITIAL_VALUE;
+}
 //============[PRIVATE METHODS IMPLEMENATION]=====================

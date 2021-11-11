@@ -109,3 +109,12 @@ void test_LEDS_TurnON_AllLeds(void) {
     LEDS_TurnOnAll();
     TEST_ASSERT_EQUAL(0xFFFF, fake_port);
 }
+/**
+ * @brief Turn off all LEDs
+ * 
+ */
+void test_LEDS_TurnOff_AllLeds(void) {
+    LEDS_TurnOnAll();
+    LEDS_TurnOffAll();
+    TEST_ASSERT_EQUAL(0x0, fake_port);
+}
