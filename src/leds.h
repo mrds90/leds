@@ -15,6 +15,12 @@ typedef enum {
     LED15,      LED16,
     LED_QTY,
 } led_t;
+
+typedef enum {
+    LED_OFF = 0,
+    LED_ON,
+    LED_INVALID,
+} led_state_t;
 /**
  * @brief Initialize the leds
  *
@@ -23,23 +29,28 @@ typedef enum {
 void LEDS_Init(uint16_t *port);
 
 /**
- * @brief Test: TurnOn a singular led
+ * @brief TurnOn a singular led
  *
  */
 void LEDS_TurnOn(led_t led);
 
 /**
- * @brief Test: TurnOff a singular led
+ * @brief TurnOff a singular led
  *
  */
 void LEDS_TurnOff(led_t led);
 /**
- * @brief Test: TurnOn all leds
+ * @brief TurnOn all leds
  *
  */
 void LEDS_TurnOnAll(void);
 /**
- * @brief Test: TurnOff all leds
+ * @brief TurnOff all leds
  *
  */
 void LEDS_TurnOffAll(void);
+/**
+ * @brief Toggle a singular led
+ *
+ */
+led_state_t LEDS_GetState(led_t led);

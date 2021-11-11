@@ -60,7 +60,7 @@ void test_LEDS_TurnOnAndOffSeveralLeds(void) {
  *
  */
 void test_LEDS_TurnOn_BadInput(void) {
-    MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Numero de led invalido");
+    MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Invalid Led number");
     MessageRegister_CMockIgnoreArg_line(0);
     LEDS_TurnOn(INVALID_LED);
     TEST_ASSERT_EQUAL(0, fake_port);
@@ -70,7 +70,7 @@ void test_LEDS_TurnOn_BadInput(void) {
  * 
  */
 void test_LEDS_TurnOFF_BadInput(void) {
-    MessageRegister_Expect(0, "LEDS_TurnOff", 0, "Numero de led invalido");
+    MessageRegister_Expect(0, "LEDS_TurnOff", 0, "Invalid Led number");
     MessageRegister_CMockIgnoreArg_line(0);
     LEDS_TurnOff(INVALID_LED);
 }
@@ -92,10 +92,10 @@ void test_LEDS_TurnOnHighLimit(void) {
  * 
  */
 void test_LEDS_TurnOn_OutOfRangeAtLimit(void) {
-    MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Numero de led invalido");
+    MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Invalid Led number");
     MessageRegister_CMockIgnoreArg_line(0);
     LEDS_TurnOn(17);
-    MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Numero de led invalido");
+    MessageRegister_Expect(0, "LEDS_TurnOn", 0, "Invalid Led number");
     MessageRegister_CMockIgnoreArg_line(0);
     LEDS_TurnOn(0);
     TEST_ASSERT_EQUAL(0, fake_port);
@@ -118,3 +118,31 @@ void test_LEDS_TurnOff_AllLeds(void) {
     LEDS_TurnOffAll();
     TEST_ASSERT_EQUAL(0x0, fake_port);
 }
+/**
+ * @brief Check status of led turned on
+ * 
+ */
+void test_LEDS_GetStateOn(void) {
+    LEDS_TurnOn(LED3);
+    led_state_t state = LEDS_GetState(LED3);
+    TEST_ASSERT_EQUAL(LED_ON, state);
+}
+/**
+ * @brief Check status of led turned off
+ * 
+ */
+void test_LEDS_GetStateOff(void) {
+    LEDS_TurnOn(LED3);
+    led_state_t state = LEDS_GetState(LED5);
+    TEST_ASSERT_EQUAL(LED_OFF, state);
+}
+
+void test_LEDS_GetStateInvalidLed(void) {
+    LEDS_TurnOn(LED_3);
+    MessageRegister_Expect(0, "LEDS_GetState", 0, "Invalid Led number");
+    MessageRegister_CMockIgnoreArg_line(0);
+    led_state_t state = LEDS_GetState(INVALID_LED);
+    TEST_ASSERT_EQUAL(LED_INVALID, state);
+}
+//  * Consultar el estado de un led apagado
+//  * Consultar el estado de un led encendido
