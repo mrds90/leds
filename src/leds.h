@@ -20,16 +20,16 @@ typedef enum {
  *
  * @return void
  */
-void LedsInit(uint16_t *port);
+void LEDS_Init(uint16_t *port);
 
 /**
  * @brief Test: TurnOn a singular led
  *
  */
-void LedTurnOn(led_t led);
+void LEDS_TurnOn(led_t led);
 
 /**
  * @brief Test: TurnOff a singular led
  *
  */
-void LedTurnOff(led_t led);
+void LEDS_TurnOff(led_t led);
