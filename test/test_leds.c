@@ -101,3 +101,11 @@ void test_LEDS_TurnOn_OutOfRangeAtLimit(void) {
     TEST_ASSERT_EQUAL(0, fake_port);
 }
 
+/**
+ * @brief Test: Turn on all LEDs
+ *
+ */
+void test_LEDS_TurnON_AllLeds(void) {
+    LEDS_TurnOnAll();
+    TEST_ASSERT_EQUAL(0xFFFF, fake_port);
+}

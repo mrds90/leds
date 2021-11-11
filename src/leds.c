@@ -3,6 +3,7 @@
 //============[PRIVATE CONSTANTS]=====================
 #define LED_PORT_INITIAL_VALUE 0x0000
 #define LedToMask(led) (1 << (led - 1))
+#define ALL_LEDS_MASK   0xFFFF
 
 //============[PRIVATE FUNTIONS DECLARATION]=====================
 
@@ -37,4 +38,7 @@ void LEDS_TurnOff(led_t led) {
     }
 }
 
+void LEDS_TurnOnAll (void) {
+    *port = ALL_LEDS_MASK;
+}
 //============[PRIVATE METHODS IMPLEMENATION]=====================
