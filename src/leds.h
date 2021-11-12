@@ -53,7 +53,7 @@ void LEDS_TurnOnAll(void);
 void LEDS_TurnOffAll(void);
 
 /**
- * @brief Toggle a singular led
+ * @brief Get the state of a singular led
  *
  */
 led_state_t LEDS_GetState(led_t led);
